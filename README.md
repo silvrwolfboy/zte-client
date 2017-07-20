@@ -1,4 +1,4 @@
-# 城院校园网Linux客户端 v 2.1
+# 城院校园网Linux客户端 v3.0 Beta
 
 ### 简介
 本客户端为Linux中兴认证客户端，已适配东莞理工学院城市学院。
@@ -10,7 +10,7 @@
 libcurl, libleptonica, tesseract
 
 
-For Debian Jessie
+####For Debian Jessie
 ```
 apt-get install libcurl4-openssl-dev libleptonica-dev tesseract-ocr-dev tesseract-ocr-eng gcc git make cmake
 git clone https://git.coding.net/yzs/zte-client.git
@@ -19,6 +19,24 @@ cmake CMakeLists.txt
 make
 cp ./zte_client /usr/sbin/zte-client
 ```
+
+####交叉编译
+Debian Jessie可参考此处安装Toolchains: [CrossToolchains#For_jessie_.28Debian_8.29](https://wiki.debian.org/CrossToolchains#For_jessie_.28Debian_8.29) 
+
+OpenWRT/PandoraBox可到官网下载Toolchains
+
+需要先交叉编译好curl, leptonica, tesseract, libjpeg，库编译完毕后，参考以下命令编译客户端
+```
+git clone https://git.coding.net/yzs/zte-client.git
+cd zte-client
+mkdir -p mipsel-build
+cd mipsel-build
+mipsel-linux-gnu-gcc -I/usr/local/libcurl-mipsel/include/ -I/usr/local/libleptonica-mipsel/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
+mipsel-linux-gnu-g++ main.o zte.o dhcpClient.o exception.o webAuth.o /usr/local/libcurl-mipsel/lib/libcurl.a /usr/local/libleptonica-mipsel/lib/liblept.a /usr/local/tesseract-mipsel/lib/libtesseract.a /usr/lib/mipsel-linux-gnu/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
+cp ./zte_client /usr/sbin/zte-client
+```
+
+
 
 ### 使用说明
 ```
@@ -34,7 +52,8 @@ cp ./zte_client /usr/sbin/zte-client
 	-w, --webuser		天翼认证用户名
 	-k, --webpass		天翼认证密码
 	-f, --pidfile		pid文件路径，默认为/tmp/zte-client.pid
-	-i, --dhcp		指定DHCP客户端，可以选择dhclient或udhcpc，默认为dhclient
+	-m, --logfile       日志文件路径，前台运行模式下默认输出到标准输出，后台运行模式下默认重定向到/dev/null
+	-i, --dhcp		指定DHCP客户端，可以选择dhclient, udhcpc或none(代表不启用DHCP客户端)，默认为dhclient
 	-b, --daemon		以守护进程模式运行
 	-r, --reconnect		重新连接
 	-l, --logoff		注销
