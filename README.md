@@ -31,7 +31,7 @@ git clone https://git.coding.net/yzs/zte-client.git
 cd zte-client
 mkdir -p mipsel-build
 cd mipsel-build
-mipsel-linux-gnu-gcc -I/usr/local/libcurl-mipsel/include/ -I/usr/local/libleptonica-mipsel/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
+mipsel-linux-gnu-gcc -I/usr/local/tesseract-mipsel/include -I/usr/local/libcurl-mipsel/include/ -I/usr/local/libleptonica-mipsel/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
 mipsel-linux-gnu-g++ main.o zte.o dhcpClient.o exception.o webAuth.o /usr/local/libcurl-mipsel/lib/libcurl.a /usr/local/libleptonica-mipsel/lib/liblept.a /usr/local/tesseract-mipsel/lib/libtesseract.a /usr/lib/mipsel-linux-gnu/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
 cp ./zte_client /usr/sbin/zte-client
 ```
