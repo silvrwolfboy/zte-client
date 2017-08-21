@@ -10,7 +10,7 @@
 libcurl, libleptonica, tesseract
 
 
-####For Debian Jessie
+#### For Debian Jessie
 ```
 apt-get install libcurl4-openssl-dev libleptonica-dev tesseract-ocr-dev tesseract-ocr-eng gcc git make cmake
 git clone https://git.coding.net/yzs/zte-client.git
@@ -20,7 +20,7 @@ make
 cp ./zte_client /usr/sbin/zte-client
 ```
 
-####交叉编译
+#### 交叉编译
 Debian Jessie可参考此处安装Toolchains: [CrossToolchains#For_jessie_.28Debian_8.29](https://wiki.debian.org/CrossToolchains#For_jessie_.28Debian_8.29) 
 
 OpenWRT/PandoraBox可到官网下载Toolchains
@@ -227,7 +227,7 @@ Dynamic section at offset 0x23c contains 32 entries:
 /usr/sbin/zte-client -r
 ```
 
-### 感谢
+### 参考资料
 Dot1x
 
 802.11x协议信息
