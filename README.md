@@ -217,10 +217,11 @@ libc ABIs: MIPS_PLT UNIQUE
 For bug reporting instructions, please see:
 <http://www.debian.org/Bugs/>.
 ```
+可看出glibc版本为2.13。
 修改libleptonica源码目录下的文件src/allheaders.h，在
 ```#define  LEPTONICA_ALLHEADERS_H```
 后加入
-```asm (".symver fmemopen, fmemopen@GLIBC_2.4");```
+```asm (".symver fmemopen, fmemopen@GLIBC_2.13");```
 然后重新编译libleptonica。
 
 ## 使用说明
