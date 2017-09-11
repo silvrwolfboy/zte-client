@@ -194,7 +194,34 @@ Dynamic section at offset 0x23c contains 32 entries:
  0x6ffffff0 (VERSYM)                     0x66666
  0x00000000 (NULL)                       0x0
 ```
-
+##### 交叉编译 F.A.Q
+###### 1. undefined reference to fmemopen@GLIBC_x.xx
+libleptonica使用了fmemopen()，可通过汇编的.symver指定glibc版本。
+查看目标计算机上的glibc版本，以mipsel为例，注意修改libc.so.6的路径：
+```
+bash - # /lib/mipsel-linux-gnu/libc.so.6
+GNU C Library (Debian EGLIBC 2.13-38+deb7u11) stable release version 2.13, by Roland McGrath et al.
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+Compiled by GNU CC version 4.7.2.
+Compiled on a Linux 3.2.60 system on 2016-05-30.
+Available extensions:
+	crypt add-on version 2.1 by Michael Glad and others
+	GNU Libidn by Simon Josefsson
+	Native POSIX Threads Library by Ulrich Drepper et al
+	Support for some architectures added on, not maintained in glibc core.
+	BIND-8.2.3-T5B
+libc ABIs: MIPS_PLT UNIQUE
+For bug reporting instructions, please see:
+<http://www.debian.org/Bugs/>.
+```
+修改libleptonica源码目录下的文件src/allheaders.h，在
+```#define  LEPTONICA_ALLHEADERS_H```
+后加入
+```asm (".symver fmemopen, fmemopen@GLIBC_2.4");```
+然后重新编译libleptonica。
 
 ## 使用说明
 ```
