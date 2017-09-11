@@ -13,7 +13,7 @@ libcurl, libleptonica, tesseract
 #### For Debian Jessie
 ```
 apt-get install libcurl4-openssl-dev libleptonica-dev tesseract-ocr-dev tesseract-ocr-eng gcc git make cmake
-git clone https://git.coding.net/yzs/zte-client.git
+git clone https://github.com/yzsme/zte-client.git
 cd zte-client
 cmake CMakeLists.txt
 make
@@ -139,7 +139,7 @@ make -j${MAKE_JOBS} && make -j${MAKE_JOBS} install
 最后参考以下命令编译客户端，输出ELF文件zte-client
 ```
 cd /usr/src
-git clone https://git.coding.net/yzs/zte-client.git
+git clone https://github.com/yzsme/zte-client.git
 cd zte-client
 mkdir -p mipsel-build
 cd mipsel-build
