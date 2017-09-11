@@ -1,11 +1,16 @@
 # 城院校园网Linux客户端 v3.0.x
 
-### 简介
+## 简介
 本客户端为Linux中兴认证客户端，已适配东莞理工学院城市学院。
 
 参考Dot1x
 
-### 编译
+## 安装
+### 方式一：下载预编译ELF文件
+访问[Release Page](https://github.com/yzsme/zte-client/releases)，下载适合你的CPU的版本以及tesseract的训练数据，解压可直接使用。
+libcurl, libleptonica, libtesseract已静态链接，无需再安装此类库。
+
+### 方式二：自编译
 需要安装以下运行库:
 libcurl, libleptonica, tesseract
 
@@ -191,7 +196,7 @@ Dynamic section at offset 0x23c contains 32 entries:
 ```
 
 
-### 使用说明
+## 使用说明
 ```
 必要参数(使用-l, -r参数不要求以下参数):
 
@@ -212,7 +217,7 @@ Dynamic section at offset 0x23c contains 32 entries:
 	-l, --logoff		注销
 	-h, --help		显示帮助信息
 ```
-### 示例
+## 示例
 进行中兴认证与天翼认证，并以守护进程模式运行:
 ```
 /usr/sbin/zte-client --zteuser username --ztepass password --webuser webusername --webpass webpassword --device eth0 --daemon
@@ -228,17 +233,17 @@ Dynamic section at offset 0x23c contains 32 entries:
 /usr/sbin/zte-client -r
 ```
 
-### 参考资料
+## 参考资料
 Dot1x
 
 802.11x协议信息
 
-### 链接
+## 链接
 [MIT License](https://opensource.org/licenses/MIT)
 
 [Zhensheng Yuan's weblog: http://zhensheng.im](http://zhensheng.im)
 
-### 协议
+## 协议
 **The MIT License (MIT)**
 
 Copyright (c) 2016 Zhensheng Yuan
