@@ -195,7 +195,15 @@ Dynamic section at offset 0x23c contains 32 entries:
  0x00000000 (NULL)                       0x0
 ```
 ##### 交叉编译 F.A.Q
-###### 1. undefined reference to fmemopen@GLIBC_x.xx
+###### 1. version `GLIBC_x.xx' not found
+通过nm可查看何函数使用了此版本的glibc：
+```
+nm zte-client | grep "GLIBC_x.xx"
+```
+如：
+```
+U fmemopen@GLIBC_2.22
+```
 libleptonica使用了fmemopen()，可通过汇编的.symver指定glibc版本。
 查看目标计算机上的glibc版本，以mipsel为例，注意修改libc.so.6的路径：
 ```
