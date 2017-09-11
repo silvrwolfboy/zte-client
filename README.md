@@ -31,9 +31,14 @@ OpenWRT/PandoraBox可到官网下载Toolchains
 ```
 apt-get install build-essential crossbuild-essential-mipsel autoconf libtool pkg-config git
 
-cd /usr/src
-
 MAKE_JOBS=32
+PREFIX="/usr/local/"
+SRC_DIR="/usr/src/"
+HOST="mipsel"
+export CC="/usr/bin/mipsel-linux-gnu-gcc"
+export CXX="/usr/bin/mipsel-linux-gnu-g++"
+
+cd ${SRC_DIR}
 
 CURL_VERSION="7.54.1"
 LEPT_VERSION="1.74.4"
@@ -46,10 +51,10 @@ wget -O- https://github.com/libjpeg-turbo/libjpeg-turbo/archive/${LIBJPEG_VERSIO
 ```
 编译curl: 
 ```
-cd /usr/src/curl-${CURL_VERSION}
-CC=/usr/bin/mipsel-linux-gnu-gcc ./configure \
---host=mipsel \
---prefix=/usr/local/curl-mipsel \
+cd ${SRC_DIR}curl-${CURL_VERSION}
+./configure \
+--host=${HOST} \
+--prefix=${PREFIX}curl-${HOST} \
 --disable-debug \
 --disable-ares \
 --disable-rt \
@@ -97,22 +102,20 @@ make -j${MAKE_JOBS} && make -j${MAKE_JOBS} install
 ```
 编译libjpeg:
 ```
-cd /usr/src/libjpeg-turbo-${LIBJPEG_VERSION}
+cd ${SRC_DIR}libjpeg-turbo-${LIBJPEG_VERSION}
 autoreconf -fiv
-CC=/usr/bin/mipsel-linux-gnu-gcc \
 ./configure \
---host=mipsel \
---prefix=/usr/local/libjpeg-mipsel
+--host=${HOST} \
+--prefix=${PREFIX}libjpeg-${HOST}
 make -j${MAKE_JOBS} && make -j${MAKE_JOBS} install
 ```
 编译leptonica:
 ```
-cd /usr/src/leptonica-${LEPT_VERSION}
-CC=/usr/bin/mipsel-linux-gnu-gcc \
-CFLAGS="-I/usr/local/libjpeg-mipsel/include/ -L/usr/local/libjpeg-mipsel/lib/" \
+cd ${SRC_DIR}leptonica-${LEPT_VERSION}
+CFLAGS="-I${PREFIX}libjpeg-${HOST}/include/ -L${PREFIX}libjpeg-${HOST}/lib/" \
 ./configure \
---host=mipsel \
---prefix=/usr/local/leptonica-mipsel \
+--host=${HOST} \
+--prefix=${PREFIX}leptonica-${HOST} \
 --without-zlib \
 --without-libpng \
 --without-giflib \
@@ -123,28 +126,26 @@ make -j${MAKE_JOBS} && make -j${MAKE_JOBS} install
 ```
 编译tesseract:
 ```
-cd /usr/src/tesseract-${TESSERACT_VERSION}
+cd ${SRC_DIR}tesseract-${TESSERACT_VERSION}
 ./autogen.sh
-C=/usr/bin/mipsel-linux-gnu-gcc \
-CXX=/usr/bin/mipsel-linux-gnu-g++ \
-PKG_CONFIG_PATH="/usr/local/leptonica-mipsel/lib/pkgconfig/" \
+PKG_CONFIG_PATH="${PREFIX}leptonica-${HOST}/lib/pkgconfig/" \
 ./configure \
---host=mipsel \
+--host=${HOST} \
 --disable-largefile \
 --disable-graphics \
 --enable-embedded \
---prefix=/usr/local/tesseract-mipsel
+--prefix=${PREFIX}tesseract-${HOST}
 make -j${MAKE_JOBS} && make -j${MAKE_JOBS} install
 ```
 最后参考以下命令编译客户端，输出ELF文件zte-client
 ```
-cd /usr/src
+cd ${SRC_DIR}
 git clone https://github.com/yzsme/zte-client.git
 cd zte-client
-mkdir -p mipsel-build
-cd mipsel-build
-mipsel-linux-gnu-gcc -I/usr/local/tesseract-mipsel/include -I/usr/local/curl-mipsel/include/ -I/usr/local/leptonica-mipsel/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
-mipsel-linux-gnu-g++ main.o zte.o dhcpClient.o exception.o webAuth.o /usr/local/curl-mipsel/lib/libcurl.a /usr/local/leptonica-mipsel/lib/liblept.a /usr/local/tesseract-mipsel/lib/libtesseract.a /usr/local/libjpeg-mipsel/lib/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
+mkdir -p ${HOST}-build
+cd ${HOST}-build
+mipsel-linux-gnu-gcc -I${PREFIX}tesseract-${HOST}/include -I${PREFIX}curl-${HOST}/include/ -I${PREFIX}leptonica-${HOST}/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
+mipsel-linux-gnu-g++ main.o zte.o dhcpClient.o exception.o webAuth.o ${PREFIX}curl-${HOST}/lib/libcurl.a ${PREFIX}leptonica-mipsel/lib/liblept.a ${PREFIX}tesseract-${HOST}/lib/libtesseract.a ${PREFIX}libjpeg-${HOST}/lib/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
 ```
 查看文件信息
 ```
