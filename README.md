@@ -144,8 +144,8 @@ git clone https://github.com/yzsme/zte-client.git
 cd zte-client
 mkdir -p ${HOST}-build
 cd ${HOST}-build
-mipsel-linux-gnu-gcc -I${PREFIX}tesseract-${HOST}/include -I${PREFIX}curl-${HOST}/include/ -I${PREFIX}leptonica-${HOST}/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
-mipsel-linux-gnu-g++ main.o zte.o dhcpClient.o exception.o webAuth.o ${PREFIX}curl-${HOST}/lib/libcurl.a ${PREFIX}leptonica-mipsel/lib/liblept.a ${PREFIX}tesseract-${HOST}/lib/libtesseract.a ${PREFIX}libjpeg-${HOST}/lib/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
+${CC} -I${PREFIX}tesseract-${HOST}/include -I${PREFIX}curl-${HOST}/include/ -I${PREFIX}leptonica-${HOST}/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
+${CXX} main.o zte.o dhcpClient.o exception.o webAuth.o ${PREFIX}curl-${HOST}/lib/libcurl.a ${PREFIX}leptonica-${HOST}/lib/liblept.a ${PREFIX}tesseract-${HOST}/lib/libtesseract.a ${PREFIX}libjpeg-${HOST}/lib/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
 ```
 查看文件信息
 ```
