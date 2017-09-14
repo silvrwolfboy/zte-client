@@ -1,4 +1,4 @@
-# 城院校园网Linux客户端 v3.0.x
+# 城院校园网Linux客户端 v3.1.x
 
 ## 简介
 本客户端为Linux中兴认证客户端，已适配东莞理工学院城市学院。
@@ -149,8 +149,8 @@ git clone https://github.com/yzsme/zte-client.git
 cd zte-client
 mkdir -p ${HOST}-build
 cd ${HOST}-build
-${CC} -I${PREFIX}tesseract-${HOST}/include -I${PREFIX}curl-${HOST}/include/ -I${PREFIX}leptonica-${HOST}/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c -c
-${CXX} main.o zte.o dhcpClient.o exception.o webAuth.o ${PREFIX}curl-${HOST}/lib/libcurl.a ${PREFIX}leptonica-${HOST}/lib/liblept.a ${PREFIX}tesseract-${HOST}/lib/libtesseract.a ${PREFIX}libjpeg-${HOST}/lib/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
+${CC} -I${PREFIX}tesseract-${HOST}/include -I${PREFIX}curl-${HOST}/include/ -I${PREFIX}leptonica-${HOST}/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c ../src/base64.c -c
+${CXX} main.o zte.o dhcpClient.o exception.o webAuth.o base64.o ${PREFIX}curl-${HOST}/lib/libcurl.a ${PREFIX}leptonica-${HOST}/lib/liblept.a ${PREFIX}tesseract-${HOST}/lib/libtesseract.a ${PREFIX}libjpeg-${HOST}/lib/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
 ```
 查看文件信息
 ```
