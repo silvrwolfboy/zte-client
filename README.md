@@ -294,7 +294,7 @@ Dot1x
 ## 链接
 [MIT License](https://opensource.org/licenses/MIT)
 
-[Zhensheng Yuan's weblog: http://zhensheng.im](http://zhensheng.im)
+[Zhensheng Yuan's weblog: https://zhensheng.im](https://zhensheng.im)
 
 ## 协议
 **The MIT License (MIT)**
