@@ -7,8 +7,26 @@
 
 ## 安装
 ### 方式一：下载预编译ELF文件
-访问[Release Page](https://github.com/yzsme/zte-client/releases)，下载适合你的CPU的版本以及tesseract的训练数据，解压可直接使用。
+访问[Release Page](https://github.com/yzsme/zte-client/releases)，下载适合你的CPU的版本的ELF文件(zte-client-xxx.bz2)以及tesseract的训练数据(eng.traineddata.bz2)，并解压。
 libcurl, libleptonica, libtesseract已静态链接，无需再安装此类库。
+
+如mipsel-glibc:
+```
+mkdir -p /usr/share/tesseract-ocr/tessdata/
+bunzip2 -kc eng.traineddata.bz2 > /usr/share/tesseract-ocr/tessdata/eng.traineddata
+bunzip2 -kc zte-client-mipsel-glibc.bz2 > /usr/sbin/zte-client
+chmod +x /usr/sbin/zte-client
+
+TESSDATA_PREFIX="/usr/share/tesseract-ocr/tessdata/" \
+/usr/sbin/zte-client \
+--zteuser 201535010200 \
+--ztepass 000000 \
+--webuser 13800138000 \
+--webpass 00000000 \
+--device eth0 \
+--dhcpclient dhclient \
+--daemon
+```
 
 ### 方式二：自编译
 需要安装以下运行库:
