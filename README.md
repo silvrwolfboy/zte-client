@@ -138,7 +138,6 @@ PKG_CONFIG_PATH="${PREFIX}leptonica-${HOST}/lib/pkgconfig/" \
 --host=${HOST} \
 --disable-largefile \
 --disable-graphics \
---enable-embedded \
 --prefix=${PREFIX}tesseract-${HOST}
 make -j${MAKE_JOBS} && make -j${MAKE_JOBS} install
 ```
@@ -150,7 +149,7 @@ cd zte-client
 mkdir -p ${HOST}-build
 cd ${HOST}-build
 ${CC} -I${PREFIX}tesseract-${HOST}/include -I${PREFIX}curl-${HOST}/include/ -I${PREFIX}leptonica-${HOST}/include/ ../main.c ../src/zte.c ../src/dhcpClient.c ../src/exception.c ../src/webAuth.c ../src/base64.c -c
-${CXX} main.o zte.o dhcpClient.o exception.o webAuth.o base64.o ${PREFIX}curl-${HOST}/lib/libcurl.a ${PREFIX}leptonica-${HOST}/lib/liblept.a ${PREFIX}tesseract-${HOST}/lib/libtesseract.a ${PREFIX}libjpeg-${HOST}/lib/libjpeg.a -lpthread -static-libstdc++ -static-libgcc -lrt -o zte-client
+${CXX} main.o zte.o dhcpClient.o exception.o webAuth.o base64.o ${PREFIX}curl-${HOST}/lib/libcurl.a ${PREFIX}leptonica-${HOST}/lib/liblept.a ${PREFIX}tesseract-${HOST}/lib/libtesseract.a ${PREFIX}libjpeg-${HOST}/lib/libjpeg.a -lpthread -static-libstdc++ -lrt -ldl -o zte-client
 ```
 查看文件信息
 ```
