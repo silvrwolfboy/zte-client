@@ -23,6 +23,7 @@ TESSDATA_PREFIX="/usr/share/tesseract-ocr/tessdata/" \
 --ztepass 000000 \
 --webuser 13800138000 \
 --webpass 00000000 \
+--webpass_encoder base64 \
 --device eth0 \
 --dhcpclient dhclient \
 --daemon
