@@ -272,9 +272,15 @@ For bug reporting instructions, please see:
 	-h, --help		显示帮助信息
 ```
 ## 示例
-进行中兴认证与天翼认证，并以守护进程模式运行:
+进行中兴认证与天翼认证，并以守护进程模式运行（注意参数--webpass_encoder base64，现在天翼认证密码需要base64编码）:
 ```
-/usr/sbin/zte-client --zteuser username --ztepass password --webuser webusername --webpass webpassword --device eth0 --daemon
+/usr/sbin/zte-client --zteuser username --ztepass password --webuser webusername --webpass webpassword --webpass_encoder base64 --device eth0 --daemon
+```
+仅进行天翼认证，并以守护进程模式运行：
+```
+/usr/sbin/zte-client --webuser webusername --webpass webpassword --webpass_encoder base64 --device eth0 --daemon
+# 如果没有启用中兴认证，程序是不会自动开始天翼认证的，因此需要发送信号USR1告知程序可以开始天翼认证
+killall -USR1 zte-client
 ```
 
 注销:
